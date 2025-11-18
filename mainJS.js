@@ -15,50 +15,55 @@ petals.forEach(petal => {
 // =======
 // Batas 
 // =======
-
 const startDate = new Date('2022-11-22');
 
 function updateCounter() {
   const now = new Date();
 
-  // Total selisih waktu dalam milidetik
-  const totalMilliseconds = now - startDate;
-  const totalDays = Math.floor(totalMilliseconds / (1000 * 60 * 60 * 24));
+  // SALIN tanggal supaya bisa dimodifikasi
+  let y = startDate.getFullYear();
+  let m = startDate.getMonth();
+  let d = startDate.getDate();
 
-  // --- Logika modular ---
-  let years = Math.floor(totalDays / 365);
-  let remainingDaysAfterYears = totalDays % 365;
-
-  let months = Math.floor(remainingDaysAfterYears / 30);
-  let remainingDaysAfterMonths = remainingDaysAfterYears % 30;
-
-  let weeks = Math.floor(remainingDaysAfterMonths / 7);
-  let days = remainingDaysAfterMonths % 7;
-
-  // --- Koreksi rollover otomatis ---
-  if (days >= 7) {
-    weeks += Math.floor(days / 7);
-    days = days % 7;
+  // Hitung selisih tahun
+  let years = now.getFullYear() - y;
+  // jika bulan/hari sekarang belum lewat dari bulan/hari start → tahun dikurangi
+  if (
+    now.getMonth() < m ||
+    (now.getMonth() === m && now.getDate() < d)
+  ) {
+    years--;
   }
 
-  if (weeks >= 4) {
-    months += Math.floor(weeks / 4);
-    weeks = weeks % 4;
-  }
+  // Hitung tanggal setelah menambah 'years'
+  let temp = new Date(startDate);
+  temp.setFullYear(startDate.getFullYear() + years);
 
-  if (months >= 12) {
-    years += Math.floor(months / 12);
-    months = months % 12;
+  // Hitung selisih bulan
+  let months = now.getMonth() - temp.getMonth();
+  if (now.getDate() < temp.getDate()) {
+    months--;
   }
+  if (months < 0) months += 12;
 
-  // --- Update ke elemen HTML ---
+  // Hitung tanggal setelah menambah 'months'
+  temp.setMonth(temp.getMonth() + months);
+
+  // Hitung sisa hari
+  let diffMs = now - temp;
+  let diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  // Jadikan weeks + days
+  let weeks = Math.floor(diffDays / 7);
+  let days = diffDays % 7;
+
+  // Update HTML
   document.getElementById('years').textContent = years;
   document.getElementById('months').textContent = months;
   document.getElementById('weeks').textContent = weeks;
   document.getElementById('days').textContent = days;
 }
 
-// Jalankan pertama kali & perbarui setiap jam
 updateCounter();
 setInterval(updateCounter, 1000 * 60 * 60);
 
@@ -98,4 +103,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Append the cloned set for seamless looping
     cloneSet.forEach(clone => column.appendChild(clone));
   });
+
 });
