@@ -1024,7 +1024,7 @@ section.surat {
 
 .kartu {
     background: #FFFFFF;
-    background-image: url(/foto/preset.png);
+    background-image: url(foto/preset.png);
     background-size: cover;
     background-position: center;
     border-radius: 25px;
@@ -1894,4 +1894,5 @@ section.surat {
     .penutup p {
         font-size: medium;
     }
+
 }
