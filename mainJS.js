@@ -15,58 +15,74 @@ petals.forEach(petal => {
 // =======
 // Batas 
 // =======
-const startDate = new Date('2022-11-22');
+const startDate = new Date('2022-11-20T00:00:00');
 
 function updateCounter() {
   const now = new Date();
-
-  // SALIN tanggal supaya bisa dimodifikasi
-  let y = startDate.getFullYear();
-  let m = startDate.getMonth();
-  let d = startDate.getDate();
-
-  // Hitung selisih tahun
-  let years = now.getFullYear() - y;
-  // jika bulan/hari sekarang belum lewat dari bulan/hari start → tahun dikurangi
-  if (
-    now.getMonth() < m ||
-    (now.getMonth() === m && now.getDate() < d)
-  ) {
-    years--;
+  
+  // Gunakan 'tempDate' sebagai kursor yang kita majukan pelan-pelan dari start ke now
+  let tempDate = new Date(startDate);
+  
+  // 1. HITUNG TAHUN
+  let years = 0;
+  while (true) {
+    // Coba tambah 1 tahun ke depan
+    let nextYear = new Date(tempDate);
+    nextYear.setFullYear(tempDate.getFullYear() + 1);
+    
+    // Jika tanggal setahun ke depan masih lebih kecil dari SEKARANG, simpan & lanjut
+    if (nextYear <= now) {
+      years++;
+      tempDate = nextYear; // Majukan kursor
+    } else {
+      break; // Stop jika sudah lewat
+    }
   }
 
-  // Hitung tanggal setelah menambah 'years'
-  let temp = new Date(startDate);
-  temp.setFullYear(startDate.getFullYear() + years);
-
-  // Hitung selisih bulan
-  let months = now.getMonth() - temp.getMonth();
-  if (now.getDate() < temp.getDate()) {
-    months--;
+  // 2. HITUNG BULAN
+  let months = 0;
+  while (true) {
+    // Coba tambah 1 bulan ke depan
+    let nextMonth = new Date(tempDate);
+    nextMonth.setMonth(tempDate.getMonth() + 1);
+    
+    // PENTING: Koreksi tanggal jika loncat bulan (misal 31 Jan -> 28 Feb)
+    // Jika tanggalnya berubah (misal dari tgl 31 jadi tgl 2), kembalikan ke akhir bulan sebelumnya
+    if (nextMonth.getDate() !== tempDate.getDate()) {
+        nextMonth.setDate(0);
+    }
+    
+    if (nextMonth <= now) {
+      months++;
+      tempDate = nextMonth; // Majukan kursor
+    } else {
+      break;
+    }
   }
-  if (months < 0) months += 12;
 
-  // Hitung tanggal setelah menambah 'months'
-  temp.setMonth(temp.getMonth() + months);
+  // 3. HITUNG SISA HARI (Dari selisih waktu dalam milidetik)
+  let diffMs = now - tempDate;
+  // Konversi milidetik sisa ke jumlah hari bulat
+  let totalDaysLeft = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  // Hitung sisa hari
-  let diffMs = now - temp;
-  let diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  // Jadikan weeks + days
-  let weeks = Math.floor(diffDays / 7);
-  let days = diffDays % 7;
+  // 4. PECAH JADI WEEKS & DAYS
+  let weeks = Math.floor(totalDaysLeft / 7);
+  let days = totalDaysLeft % 7;
 
   // Update HTML
+  // Gunakan TextContent agar lebih ringan daripada InnerHTML
   document.getElementById('years').textContent = years;
   document.getElementById('months').textContent = months;
   document.getElementById('weeks').textContent = weeks;
   document.getElementById('days').textContent = days;
 }
 
+// Panggil sekali saat halaman dimuat agar tidak menunggu 1 detik
 updateCounter();
-setInterval(updateCounter, 1000 * 60 * 60);
 
+// Ubah interval menjadi 1000ms (1 detik) agar real-time
+// Ini memastikan saat jam 00:00 malam, hari langsung bertambah
+setInterval(updateCounter, 1000);
 
 
 // ======
@@ -105,3 +121,4 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
