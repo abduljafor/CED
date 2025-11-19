@@ -263,17 +263,14 @@ section.main::after {
 .tabs {
     position: relative;
     display: flex;
-    background: none;
-    justify-content: space-evenly;
-    padding: 1rem; /* Adjusted padding */
+    justify-content: center; /* UBAH KE CENTER AGAR SIMETRIS */
+    align-items: center;
+    padding: 1rem;
     width: 100%;
     border-radius: 80px 80px 0% 0%;
     top: -9rem;
     background: #f942d7 8.92%;
-    background-position-y: 100px;
-    overflow-x: auto; /* Allow tabs to scroll horizontally on small screens */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    white-space: nowrap; /* Prevent tabs from wrapping */
+    overflow-x: visible; /* Ubah ke visible agar slider tidak terpotong */
 }
 
 input[type=radio] {
@@ -285,7 +282,7 @@ input[type=radio] {
     align-items: center;
     justify-content: center;
     height: 5.6rem;
-    min-width: 20.5rem; /* Use min-width to ensure tabs don't shrink too much */
+    width: 20rem; /* GUNAKAN WIDTH TETAP, BUKAN MIN-WIDTH */
     font-size: 2rem;
     font-weight: 600;
     border-radius: 10px;
@@ -293,11 +290,15 @@ input[type=radio] {
     transition: color 0.15s ease-in;
     position: relative;
     z-index: 900;
-    flex-shrink: 0; /* Prevent tabs from shrinking below min-width */
+    margin: 0 0.5rem; /* Memberi sedikit jarak antar tab */
 }
 
 .hidden {
-    padding-right: 31rem;
+    display: block;
+    width: 34rem; /* Lebar Polygon + Sedikit napas */
+    height: 1px;
+    flex-shrink: 0; /* Agar area ini tidak mengecil */
+    padding: 0; /* Reset padding lama */
 }
 
 input[type=radio]:checked + label {
@@ -315,22 +316,23 @@ input[type=radio]:checked + label {
 
 .slider {
     position: absolute;
-    top: 1.1rem;
-    left: -1rem; /* Adjust initial position */
+    top: 1.3rem; /* Sesuaikan vertikal */
     height: 5rem;
-    width: 20rem;
+    width: 20rem; /* Sama persis dengan .tab */
     background: #1F0019;
     border-radius: 80px;
-    transition: transform 0.25s ease-out;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Efek membal sedikit agar smooth */
     z-index: 800;
+    
+    /* LOGIKA PENTING: Mulai dari tengah layar mutlak */
+    left: 50%; 
+    margin-left: -10rem; /* Geser ke kiri setengah dari width (20rem/2) agar benar-benar di tengah titik 0 */
 }
 
-/* Updated slider positions for better consistency */
-input[id=radio-1]:checked ~ .slider { transform: translateX(8.7rem); }
-input[id=radio-2]:checked ~ .slider { transform: translateX(36.2rem); } /* Adjusted based on visual spacing */
-input[id=radio-3]:checked ~ .slider { transform: translateX(101.7rem); } /* Adjusted based on visual spacing */
-input[id=radio-4]:checked ~ .slider { transform: translateX(129.2rem); } /* Adjusted based on visual spacing */
-
+input[id=radio-1]:checked ~ .slider { transform: translateX(-48rem); }
+input[id=radio-2]:checked ~ .slider { transform: translateX(-27.5rem); }
+input[id=radio-3]:checked ~ .slider { transform: translateX(27.5rem)}
+input[id=radio-4]:checked ~ .slider { transform: translateX(48rem); }
 
 .starburst {
     position: absolute;
@@ -1175,6 +1177,11 @@ section.surat {
         font-size: 15rem;
         left: 23%;
     }
+
+    .tabs {
+        width: 100%;
+        overflow-x: hidden; /* Mencegah scroll samping */
+    }
 }
 
 @media (max-width: 1200px) {
@@ -1188,10 +1195,10 @@ section.surat {
         width: 18rem;
     }
     /* Adjust slider positions for smaller tabs */
-    input[id=radio-1]:checked ~ .slider { transform: translateX(8.7rem); }
-    input[id=radio-2]:checked ~ .slider { transform: translateX(28.2rem); }
-    input[id=radio-3]:checked ~ .slider { transform: translateX(47.7rem); }
-    input[id=radio-4]:checked ~ .slider { transform: translateX(67.2rem); }
+    input[id=radio-1]:checked ~ .slider { transform: translateX(-47.7rem); }
+    input[id=radio-2]:checked ~ .slider { transform: translateX(-26.5rem); }
+    input[id=radio-3]:checked ~ .slider { transform: translateX(28.7rem); }
+    input[id=radio-4]:checked ~ .slider { transform: translateX(49.7rem); }
 
     .title {
         font-size: 7rem;
@@ -1317,35 +1324,47 @@ section.surat {
     .counter-card {
         padding: 5rem;
     }
-    .title1 {
-        font-size: 6rem;
-        padding-top: 15rem;
+    .tab {
+        width: 14rem; 
+        font-size: 1.6rem; 
     }
-    .polygon {
-        width: 26rem;
-        height: 23rem;
-        top: -15rem;
-    }
-    .tabs {
-        top: -10rem;
-        padding: 0.5rem;
-    }
-    .tabs .tab {
-        min-width: 15rem;
-        font-size: 3rem;
-        height: 8rem;
-    }
+
     .slider {
-        width: 15rem;
-        height: 6rem;
-        top: 1rem;
-        margin-top: 1rem;
+        width: 14rem; 
+        margin-left: -7rem; 
     }
-    /* Adjust slider positions */
-    input[id=radio-1]:checked ~ .slider { transform: translateX(8.2rem); }
-    input[id=radio-2]:checked ~ .slider { transform: translateX(24.2rem); }
-    input[id=radio-3]:checked ~ .slider { transform: translateX(40.2rem); }
-    input[id=radio-4]:checked ~ .slider { transform: translateX(56.2rem); }
+
+    .hidden {
+        width: 24rem; 
+    }
+    
+    .polygon {
+        width: 24rem;
+        height: 16rem; 
+        top: -10rem;
+        border-radius: 4rem;
+    }
+    
+    .title1 {
+        padding-top: 10rem;
+        font-size: 3.5rem;
+    }
+
+    input[id=radio-1]:checked ~ .slider { 
+        transform: translateX(-41rem); 
+    }
+
+    input[id=radio-2]:checked ~ .slider { 
+        transform: translateX(-21.5rem); 
+    }
+
+    input[id=radio-3]:checked ~ .slider { 
+        transform: translateX(21.5rem); 
+    }
+
+    input[id=radio-4]:checked ~ .slider { 
+        transform: translateX(41rem); 
+    }
 
     .content-wrapper {
         flex-direction: column-reverse;
@@ -1532,41 +1551,84 @@ section.surat {
     .counter-label {
         font-size: 1rem;
     }
-    .title1 {
-        font-size: 3.5rem;
-        padding-top: 8rem;
-    }
-    .polygon {
-        width: 20rem;
-        height: 16rem;
-        top: -10rem;
-    }
     .tabs {
-        top: -10rem;
-        padding: 0.3rem;
+        top: 0; /* Reset posisi negatif */
+        margin-top: -2rem; /* Sedikit naik ke polygon */
+        background: #f942d7; /* Warna solid */
+        padding: 0;
+        border-radius: 0; /* Hilangkan lengkungan besar di HP */
     }
-    .tabs .tab {
-        min-width: 12rem;
-        font-size: 1.6rem;
-        height: 4.5rem;
-    }
-    .slider {
-        width: 12rem;
-        height: 4rem;
-        top: 0.5rem;
-    }
-    /* Adjust slider positions */
-    input[id=radio-1]:checked ~ .slider { transform: translateX(6rem); }
-    input[id=radio-2]:checked ~ .slider { transform: translateX(19rem); }
-    input[id=radio-3]:checked ~ .slider { transform: translateX(32rem); }
-    input[id=radio-4]:checked ~ .slider { transform: translateX(45rem); }
 
-    section.main {
-        border-radius: 60px 60px 0 0;
-        margin-top: -14rem;
-        padding-top: 14rem;
-        margin-bottom: -14.5rem;
+    /* Sembunyikan area kosong di tengah (karena di HP tidak muat) */
+    .hidden {
+        display: none; 
     }
+
+    /* Atur Tab agar memenuhi layar (4 tab dibagi rata) */
+    .tab {
+        width: 25%; /* 100% bagi 4 menu = 25% */
+        font-size: 1.4rem; /* Font lebih kecil */
+        margin: 0; /* Hapus margin */
+        height: 5rem;
+    }
+
+    /* Atur Slider menjadi responsif berdasarkan % */
+    .slider {
+        width: 25%; /* Lebar slider mengikuti lebar tab */
+        left: 0; /* Reset posisi start ke paling kiri layar */
+        margin-left: 0; /* Reset margin negatif center */
+        top: 0;
+        height: 100%; /* Full height dari tab */
+        background: rgba(31, 0, 25, 0.5); /* Sedikit transparan agar teks terbaca */
+        border-radius: 0; /* Kotak saja di HP */
+        border-bottom: 3px solid #fff; /* Indikator garis bawah biar rapi */
+    }
+
+    /* LOGIKA SLIDER BARU KHUSUS HP (Menggunakan %) */
+    
+    /* Posisi 1: 0% */
+    input[id=radio-1]:checked ~ .slider { 
+        transform: translateX(0%); 
+    }
+
+    /* Posisi 2: 100% (Geser 1x lebar sendiri) */
+    input[id=radio-2]:checked ~ .slider { 
+        transform: translateX(100%); 
+    }
+
+    /* Posisi 3: 200% (Geser 2x lebar sendiri) */
+    input[id=radio-3]:checked ~ .slider { 
+        transform: translateX(200%); 
+    }
+
+    /* Posisi 4: 300% (Geser 3x lebar sendiri) */
+    input[id=radio-4]:checked ~ .slider { 
+        transform: translateX(300%); 
+    }
+    
+    /* Sesuaikan Polygon agar tidak terlalu besar di HP */
+    .polygon {
+        position: relative; /* Ubah jadi relative agar flow wajar */
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 15rem;
+        clip-path: none; /* Hilangkan bentuk aneh di HP, jadi kotak header biasa */
+        border-radius: 0 0 3rem 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .title1 {
+        padding-top: 2rem; /* Kurangi padding judul */
+        font-size: 3.5rem;
+    }
+    
+    section.main {
+        padding-top: 2rem; /* Sesuaikan jarak konten */
+        border-radius: 30px 30px 0 0;
+    }
+
     section.main::after {
         border-bottom-left-radius: 6rem;
         border-bottom-right-radius: 6rem;
@@ -1894,7 +1956,4 @@ section.surat {
     .penutup p {
         font-size: medium;
     }
-
 }
-
-
