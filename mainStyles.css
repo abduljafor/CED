@@ -1013,7 +1013,7 @@ section.surat {
 .kartu-1 { 
     grid-area: card1; 
     --tx: 20%;
-    --ty: 0%;
+    --ty: -10%;
     transform: translate(var(--tx)) translateY(var(--ty));
 }
 .kartu-2 { 
@@ -1024,14 +1024,14 @@ section.surat {
 }
 .kartu-3 { 
     grid-area: card3; 
-    --tx: 20%;
-    --ty: 0%;
+    --tx: 25%;
+    --ty: 10%;
     transform: translate(var(--tx)) translateY(var(--ty));
 }
 .kartu-4 { 
     grid-area: card4; 
     --tx: -20%;
-    --ty: 0%;
+    --ty: -10%;
     transform: translate(var(--tx)) translateY(var(--ty));
 }
 .kartu-5 { 
@@ -1042,8 +1042,8 @@ section.surat {
 }
 .kartu-6 { 
     grid-area: card6; 
-    --tx: -20%;
-    --ty: 0%;
+    --tx: -25%;
+    --ty: 10%;
     transform: translate(var(--tx)) translateY(var(--ty));
 }
 
@@ -1060,7 +1060,7 @@ section.surat {
 }
 
 .kartu-utama img {
-    width: 100%;
+    width: 80%;
     height: auto;
     max-height: 600px; 
     object-fit: contain;
@@ -1104,6 +1104,9 @@ section.surat {
     html {
         font-size: 55%;
     }
+    section.main{
+        border-radius: 60px;
+    }
     .title {
         font-size: 8rem;
     }
@@ -1124,28 +1127,42 @@ section.surat {
     }
     .tabs .tab {
         min-width: 18rem;
+        height: 7rem;
+        font-size: xx-large;
     }
+
     .slider {
-        width: 18rem;
+        margin-top: 0.6rem;
+        width: 20rem;
+        height: 6rem;
     }
     
-    input[id=radio-1]:checked ~ .slider { transform: translateX(-47.7rem); }
-    input[id=radio-2]:checked ~ .slider { transform: translateX(-26.5rem); }
-    input[id=radio-3]:checked ~ .slider { transform: translateX(28.7rem); }
-    input[id=radio-4]:checked ~ .slider { transform: translateX(49.7rem); }
+    input[id=radio-1]:checked ~ .slider { transform: translateX(-48.7rem); }
+    input[id=radio-2]:checked ~ .slider { transform: translateX(-27.5rem); }
+    input[id=radio-3]:checked ~ .slider { transform: translateX(27.7rem); }
+    input[id=radio-4]:checked ~ .slider { transform: translateX(48.7rem); }
 
+    section.main{
+        min-height: 1000px;
+    }
     .title {
         font-size: 7rem;
     }
     .blkg, .dpn {
-        font-size: 15rem;
+        font-size: 17rem;
     }
     .imgberanda {
-        height: 60rem;
-        
+        height: 90rem;
     }
+    .miniSec {
+        margin-left: 2rem;
+    }
+    .content-wrapper{
+        margin-top: 18rem;
+    }
+
     .transparan {
-        bottom: 15rem;
+        bottom: -20rem;
     }
     .book {
         width: 85%;
@@ -1183,9 +1200,6 @@ section.surat {
     .col-gallery {
         height: 90rem;
     }
-    .kartu-utama {
-        width: 40%;
-    }
     .cover-bunga {
         grid-template-areas:
             "main main"
@@ -1196,35 +1210,33 @@ section.surat {
         gap: 15px;
     }
 
+    .kartu {
+        transform: none;
+    }
+
     .kartu-1 {
         grid-area: card1;
-        transform: translate(-15%) translateY(-390%);
-        width: max-content;
+        /* transform: translate(-15%) translateY(-390%); */
     }
     .kartu-2 {
         grid-area: card2;
-        transform: translateX(-20%) translateY(-360%);
-        width: max-content;
+        /* transform: translateX(-20%) translateY(-360%); */
     }
     .kartu-3 {
         grid-area: card3;
-        transform: translateX(-15%) translateY(-320%);
-        width: max-content;
+        /* transform: translateX(-15%) translateY(-320%); */
     }
     .kartu-4 {
         grid-area: card4;
-        transform: translateX(5%) translateY(-390%);
-        width: max-content;
+        /* transform: translateX(5%) translateY(-390%); */
     }
     .kartu-5 {
         grid-area: card5;
-        transform: translateX(5%) translateY(-360%);
-        width: max-content;
+        /* transform: translateX(5%) translateY(-360%); */
     }
     .kartu-6 {
         grid-area: card6;
-        transform: translateX(10%) translateY(-320%);
-        width: max-content;
+        /* transform: translateX(10%) translateY(-320%); */ 
     }
 
     .kartu-utama img {
@@ -1405,11 +1417,19 @@ section.surat {
     }
 
     .kartu-utama img {
+        width: 100%;
+        height: auto;
         max-height: 400px;
+        justify-items: center;
     }
     
+    .kartu p{
+        font-size: 3rem;
+    }
+
     .kartu {
         width: 100%; 
+        transform: none;
     }
 }
 
@@ -1441,10 +1461,11 @@ section.surat {
     }
     .tabs {
         top: 0;
-        margin-top: -2rem;
+        margin-top: -17rem;
         background: #f942d7;
         padding: 0;
         border-radius: 0;
+        z-index: 10;
     }
 
     .hidden {
@@ -1453,9 +1474,10 @@ section.surat {
 
     .tab {
         width: 25%;
-        font-size: 1.4rem;
+        font-size: 4rem;
+        letter-spacing: 0.6rem;
         margin: 0;
-        height: 5rem;
+        height: 10rem;
     }
 
     .slider {
@@ -1495,12 +1517,14 @@ section.surat {
         height: 15rem;
         clip-path: none;
         border-radius: 0 0 3rem 3rem;
-        margin-bottom: 2rem;
+        z-index: 5;
+        /* margin-bottom: 2rem; */
     }
     
     .title1 {
         padding-top: 2rem;
-        font-size: 3.5rem;
+        padding-bottom: 5rem;
+        font-size: 7rem;
     }
     
     section.main {
@@ -1592,13 +1616,15 @@ section.surat {
         padding: 15px;
     }
     .kartu p {
-        font-size: 1.3rem;
+        font-size: 3rem;
     }
     .kartu-utama img {
-        height: 25rem;
+        height: 38rem;
+        width: auto;
     }
     .penutup img {
-        height: 12rem;
+        height: 18rem;
+        width: auto;
     }
     .penutup p {
         font-size: x-large;
