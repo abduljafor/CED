@@ -662,7 +662,7 @@ section.galeri{
     color: #E204BA;
     text-align: center;
     padding: 0.8rem;
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: 800;
     display: inline-block;
     transform:scale(1.3, 2.8);
@@ -932,7 +932,7 @@ section.galeri-2{
 
 section.surat {
     position: relative;
-    padding-top: 5rem; /* Mengurangi padding agar tidak terlalu jauh */
+    padding-top: 5rem;
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(180deg, #f942d7 8.92%, #FFFFFF 100%);
     width: 100%;
@@ -940,6 +940,7 @@ section.surat {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden; /* Mencegah scroll horizontal jika kartu keluar layar */
 }
 
 .latar1 h1 {
@@ -972,6 +973,44 @@ section.surat {
     align-items: center;
 }
 
+/* --- BAGIAN BARU: Wrapper Kartu (Mengatur Posisi Grid & Offset) --- */
+.wrapper-kartu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Definisi posisi dipindah ke sini agar tidak ditimpa AOS */
+.kartu-1 { 
+    grid-area: card1; 
+    transform: translate(20%, -10%);
+}
+.kartu-2 { 
+    grid-area: card2;
+    transform: translate(15%, 0%);
+}
+.kartu-3 { 
+    grid-area: card3; 
+    transform: translate(25%, 10%);
+}
+.kartu-4 { 
+    grid-area: card4; 
+    transform: translate(-20%, -10%);
+}
+.kartu-5 { 
+    grid-area: card5; 
+    transform: translate(-15%, 0%);
+}
+.kartu-6 { 
+    grid-area: card6; 
+    transform: translate(-25%, 10%);
+}
+
+/* --- Tampilan Visual Kartu (Bagian Dalam) --- */
 .kartu {
     background: #FFFFFF;
     background-image: url(foto/preset.png);
@@ -982,13 +1021,15 @@ section.surat {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     text-align: center;
     min-height: 150px;
+    width: 100%; /* Mengisi penuh wrapper */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     border: 4px solid rgba(255, 255, 255, 0.8);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 2;
+    
+    /* Transisi halus untuk hover */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; 
 }
 
 .kartu p {
@@ -1010,43 +1051,15 @@ section.surat {
     z-index: 1;
 }
 
-.kartu-1 { 
-    grid-area: card1; 
-    --tx: 20%;
-    --ty: -10%;
-    transform: translate(var(--tx)) translateY(var(--ty));
-}
-.kartu-2 { 
-    grid-area: card2;
-    --tx: 15%;
-    --ty: 0%;
-    transform: translate(var(--tx)) translateY(var(--ty));
-}
-.kartu-3 { 
-    grid-area: card3; 
-    --tx: 25%;
-    --ty: 10%;
-    transform: translate(var(--tx)) translateY(var(--ty));
-}
-.kartu-4 { 
-    grid-area: card4; 
-    --tx: -20%;
-    --ty: -10%;
-    transform: translate(var(--tx)) translateY(var(--ty));
-}
-.kartu-5 { 
-    grid-area: card5; 
-    --tx: -15%;
-    --ty: 0%;
-    transform: translate(var(--tx)) translateY(var(--ty));
-}
-.kartu-6 { 
-    grid-area: card6; 
-    --tx: -25%;
-    --ty: 10%;
-    transform: translate(var(--tx)) translateY(var(--ty));
+/* Efek Hover: Menggunakan !important untuk memaksa scale tampil di atas animasi AOS */
+.kartu:hover {
+    transform: scale(1.15) !important; 
+    box-shadow: 0px 15px 30px rgba(237, 67, 214, 0.6);
+    z-index: 100; /* Supaya muncul paling depan */
+    cursor: pointer;
 }
 
+/* --- Kartu Utama (Tengah) --- */
 .kartu-utama {
     grid-area: main;
     background-color: rgba(255, 255, 255, 0.6);
@@ -1057,10 +1070,12 @@ section.surat {
     align-items: center;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .kartu-utama img {
-    width: 70%;
+    width: 80%;
     height: auto;
     max-height: 600px; 
     object-fit: contain;
@@ -1068,18 +1083,11 @@ section.surat {
     transition: transform 0.3s ease;
 }
 
-
-.kartu:hover {
-    transform: scale(1.15); 
-    box-shadow: 0px 10px 20px rgba(237, 67, 214, 0.5);
-    z-index: 10;
-}
-
 .kartu-utama img:hover {
-    transform: scale(1.04);
+    transform: scale(1.05) !important;
 }
 
-
+/* --- Penutup --- */
 .penutup {
     display: flex;
     flex-direction: column;
@@ -1216,27 +1224,27 @@ section.surat {
 
     .kartu-1 {
         grid-area: card1;
-        /* transform: translate(-15%) translateY(-390%); */
+        transform: none;
     }
     .kartu-2 {
         grid-area: card2;
-        /* transform: translateX(-20%) translateY(-360%); */
+        transform: none;
     }
     .kartu-3 {
         grid-area: card3;
-        /* transform: translateX(-15%) translateY(-320%); */
+        transform: none;
     }
     .kartu-4 {
         grid-area: card4;
-        /* transform: translateX(5%) translateY(-390%); */
+        transform: none;
     }
     .kartu-5 {
         grid-area: card5;
-        /* transform: translateX(5%) translateY(-360%); */
+        transform: none;
     }
     .kartu-6 {
         grid-area: card6;
-        /* transform: translateX(10%) translateY(-320%); */ 
+        transform: none;
     }
 
     .kartu-utama img {
@@ -1862,5 +1870,3 @@ section.surat {
         font-size: medium;
     }
 }
-
-
