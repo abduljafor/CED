@@ -19,69 +19,65 @@ const startDate = new Date('2022-11-20T00:00:00');
 
 function updateCounter() {
   const now = new Date();
-  
-  // Gunakan 'tempDate' sebagai kursor yang kita majukan pelan-pelan dari start ke now
   let tempDate = new Date(startDate);
-  
+
   // 1. HITUNG TAHUN
   let years = 0;
   while (true) {
-    // Coba tambah 1 tahun ke depan
     let nextYear = new Date(tempDate);
     nextYear.setFullYear(tempDate.getFullYear() + 1);
     
-    // Jika tanggal setahun ke depan masih lebih kecil dari SEKARANG, simpan & lanjut
     if (nextYear <= now) {
       years++;
-      tempDate = nextYear; // Majukan kursor
+      tempDate = nextYear;
     } else {
-      break; // Stop jika sudah lewat
+      break;
     }
   }
 
   // 2. HITUNG BULAN
   let months = 0;
   while (true) {
-    // Coba tambah 1 bulan ke depan
     let nextMonth = new Date(tempDate);
     nextMonth.setMonth(tempDate.getMonth() + 1);
     
-    // PENTING: Koreksi tanggal jika loncat bulan (misal 31 Jan -> 28 Feb)
-    // Jika tanggalnya berubah (misal dari tgl 31 jadi tgl 2), kembalikan ke akhir bulan sebelumnya
+    // Koreksi jika lompat tanggal (misal 31 Jan -> 28 Feb)
     if (nextMonth.getDate() !== tempDate.getDate()) {
-        nextMonth.setDate(0);
+      nextMonth.setDate(0);
     }
-    
+
     if (nextMonth <= now) {
       months++;
-      tempDate = nextMonth; // Majukan kursor
+      tempDate = nextMonth;
     } else {
       break;
     }
   }
 
-  // 3. HITUNG SISA HARI (Dari selisih waktu dalam milidetik)
+  // 3. HITUNG HARI & JAM
+  // Ambil selisih waktu sekarang dengan tempDate (kursor terakhir) dalam milidetik
   let diffMs = now - tempDate;
-  // Konversi milidetik sisa ke jumlah hari bulat
-  let totalDaysLeft = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  // 4. PECAH JADI WEEKS & DAYS
-  let weeks = Math.floor(totalDaysLeft / 7);
-  let days = totalDaysLeft % 7;
+  // Hitung Hari
+  let days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  
+  // Kurangi total milidetik dengan jumlah hari yang sudah diambil
+  diffMs -= days * (1000 * 60 * 60 * 24);
+
+  // Hitung Jam (Sisa dari hari)
+  let hours = Math.floor(diffMs / (1000 * 60 * 60));
 
   // Update HTML
-  // Gunakan TextContent agar lebih ringan daripada InnerHTML
   document.getElementById('years').textContent = years;
   document.getElementById('months').textContent = months;
-  document.getElementById('weeks').textContent = weeks;
   document.getElementById('days').textContent = days;
+  document.getElementById('hours').textContent = hours;
 }
 
-// Panggil sekali saat halaman dimuat agar tidak menunggu 1 detik
+// Jalankan fungsi pertama kali
 updateCounter();
 
-// Ubah interval menjadi 1000ms (1 detik) agar real-time
-// Ini memastikan saat jam 00:00 malam, hari langsung bertambah
+// Jalankan setiap 1 detik (agar jam-nya bergerak real-time)
 setInterval(updateCounter, 1000);
 
 
@@ -121,4 +117,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
 
