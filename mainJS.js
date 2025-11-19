@@ -3,8 +3,8 @@ const petals = document.querySelectorAll('.petal');
 petals.forEach(petal => {
   const startX = Math.random() * window.innerWidth;
   const endX = Math.random() * window.innerWidth;
-  const delay = Math.random() * 5; // Up to 5 seconds delay
-  const duration = 5 + Math.random() * 5; // 5 to 10 seconds duration
+  const delay = Math.random() * 5; 
+  const duration = 5 + Math.random() * 5; 
 
   petal.style.setProperty('--start-x', `${startX}px`);
   petal.style.setProperty('--end-x', `${endX}px`);
@@ -21,7 +21,6 @@ function updateCounter() {
   const now = new Date();
   let tempDate = new Date(startDate);
 
-  // 1. HITUNG TAHUN
   let years = 0;
   while (true) {
     let nextYear = new Date(tempDate);
@@ -35,13 +34,11 @@ function updateCounter() {
     }
   }
 
-  // 2. HITUNG BULAN
   let months = 0;
   while (true) {
     let nextMonth = new Date(tempDate);
     nextMonth.setMonth(tempDate.getMonth() + 1);
     
-    // Koreksi jika lompat tanggal (misal 31 Jan -> 28 Feb)
     if (nextMonth.getDate() !== tempDate.getDate()) {
       nextMonth.setDate(0);
     }
@@ -54,30 +51,22 @@ function updateCounter() {
     }
   }
 
-  // 3. HITUNG HARI & JAM
-  // Ambil selisih waktu sekarang dengan tempDate (kursor terakhir) dalam milidetik
   let diffMs = now - tempDate;
 
-  // Hitung Hari
   let days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   
-  // Kurangi total milidetik dengan jumlah hari yang sudah diambil
   diffMs -= days * (1000 * 60 * 60 * 24);
 
-  // Hitung Jam (Sisa dari hari)
   let hours = Math.floor(diffMs / (1000 * 60 * 60));
 
-  // Update HTML
   document.getElementById('years').textContent = years;
   document.getElementById('months').textContent = months;
   document.getElementById('days').textContent = days;
   document.getElementById('hours').textContent = hours;
 }
 
-// Jalankan fungsi pertama kali
 updateCounter();
 
-// Jalankan setiap 1 detik (agar jam-nya bergerak real-time)
 setInterval(updateCounter, 1000);
 
 
@@ -112,10 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const images = Array.from(column.querySelectorAll('.image-wrap'));
     const cloneSet = images.map(img => img.cloneNode(true));
 
-    // Append the cloned set for seamless looping
     cloneSet.forEach(clone => column.appendChild(clone));
   });
 
 });
+
 
 
