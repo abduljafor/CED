@@ -8,8 +8,7 @@
 </head>
 <body>
     <video id="bgVideo" loop style="display: none;">
-        <source src="vidio/SCuT.mp4" type="video/mp4">
-        Browser kamu tidak mendukung video tag.
+        <source src="SCuT.mp3" type="audio/mpeg">
     </video>
 
     <!-- 2. Tombol Kontrol Musik -->
@@ -187,25 +186,19 @@
     <script type="module" src="bunga.js"></script>
 
     <script>
-        // Mengambil elemen video dan tombol
-        const video = document.getElementById('bgVideo');
+        const audio = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
 
-        // Event listener saat tombol diklik
         musicBtn.addEventListener('click', function() {
-            if (video.paused) {
-                // Jika video sedang pause (atau belum mulai), mainkan
-                video.play().then(() => {
-                    musicBtn.innerHTML = "Stop Music 🔇";
-                }).catch(error => {
-                    console.log("Gagal memutar audio:", error);
-                });
+            if (audio.paused) {
+                audio.play();
+                musicBtn.innerHTML = "Stop Music 🔇";
             } else {
-                // Jika video sedang main, pause
-                video.pause();
+                audio.pause();
                 musicBtn.innerHTML = "Play Music 🎵";
             }
         });
     </script>
 </body>
 </html>
+
