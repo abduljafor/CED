@@ -507,6 +507,7 @@ section.prolog{
     box-shadow: 0px 0px 13px 16px #0000002c;
     z-index: 2;
     padding: 3rem;
+    margin: 3rem;
 }
 
 .covProImg {
@@ -606,7 +607,7 @@ section.galeri{
 }
 
 section.galeri{
-    margin: 10rem 0rem;
+    margin-bottom: 10rem;
     min-height: 100vh;
 }
 
@@ -661,7 +662,7 @@ section.galeri{
     color: #E204BA;
     text-align: center;
     padding: 0.8rem;
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: 800;
     display: inline-block;
     transform:scale(1.3, 2.8);
@@ -745,6 +746,25 @@ section.galeri{
     grid-column: span 3 / span 3;
     grid-row: span 2 / span 2;
     grid-column-start: 10;
+}
+
+.div2 p, .div5 p, .div6 p, .div7 p, .div8 p, .div13 p{
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+.div9 p{
+    text-align: center;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+.div11 p{
+    text-align: center;
+    padding: 0.8rem;
+    font-size: 1.6rem;
+    font-weight: 800;
 }
 
 .flip-card {
@@ -912,49 +932,44 @@ section.galeri-2{
 
 section.surat {
     position: relative;
-    overflow: hidden;
-    padding-top: 16.3rem;
+    padding-top: 5rem; /* Mengurangi padding agar tidak terlalu jauh */
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(180deg, #f942d7 8.92%, #FFFFFF 100%);
     width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    border-radius: 80px 80px 0px 0px;
-    z-index: 2;
-    min-height: 100vh;
 }
 
 .latar1 h1 {
-    margin-top: 10rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .kotak-surat {
-    flex-grow: 1;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    margin-top: -40rem;
-    margin-bottom: -15rem;
-    width: 100%;
+    margin-bottom: 5rem;
 }
 
 .cover-bunga {
     display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
     grid-template-areas:
-        "card1 card4"
-        "card2 main"
-        "card3 card6";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 20px;
-    align-items: center;
-    justify-items: center;
+        "card1 main card4"
+        "card2 main card5"
+        "card3 main card6";
+    gap: 25px;
     width: 90%;
-    max-width: 1200px;
-    position: relative;
+    max-width: 1400px;
+    align-items: center;
 }
 
 .kartu {
@@ -963,137 +978,126 @@ section.surat {
     background-size: cover;
     background-position: center;
     border-radius: 25px;
-    padding: 20px;
+    padding: 25px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     text-align: center;
-    width: 100%;
-    min-height: 10rem;
+    min-height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden;
-    transition: all 0.43s ease-in-out;
-    border: 4px solid rgba(255, 255, 255);
-    z-index: 6;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 2;
 }
 
 .kartu p {
-    margin: 0;
-    color: #333;
-    font-size: 1.5rem;
-    line-height: 1.6;
     position: relative;
-    z-index: 4;
-}
-
-.kartu::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0) 100%);
-    transform: rotate(45deg);
-    z-index: 3;
+    z-index: 2;
+    color: #7a0565;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin: 0;
 }
 
 .kartu::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.65);
-    z-index: 3;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.75); 
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.kartu-1 { 
+    grid-area: card1; 
+    --tx: 20%;
+    --ty: 0%;
+    transform: translate(var(--tx)) translateY(var(--ty));
+}
+.kartu-2 { 
+    grid-area: card2;
+    --tx: 15%;
+    --ty: 0%;
+    transform: translate(var(--tx)) translateY(var(--ty));
+}
+.kartu-3 { 
+    grid-area: card3; 
+    --tx: 20%;
+    --ty: 0%;
+    transform: translate(var(--tx)) translateY(var(--ty));
+}
+.kartu-4 { 
+    grid-area: card4; 
+    --tx: -20%;
+    --ty: 0%;
+    transform: translate(var(--tx)) translateY(var(--ty));
+}
+.kartu-5 { 
+    grid-area: card5; 
+    --tx: -15%;
+    --ty: 0%;
+    transform: translate(var(--tx)) translateY(var(--ty));
+}
+.kartu-6 { 
+    grid-area: card6; 
+    --tx: -20%;
+    --ty: 0%;
+    transform: translate(var(--tx)) translateY(var(--ty));
 }
 
 .kartu-utama {
     grid-area: main;
-    background-color: #ffffffbb;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    padding: 0;
-    width: 100%;
-    height: auto;
-    z-index: 7;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
-    z-index: 2;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    height: 100%;
 }
 
 .kartu-utama img {
-    width: auto;
-    height: 40rem;
-    max-width: 100%;
-    padding: 2rem;
-    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 600px; 
+    object-fit: contain;
     border-radius: 20px;
+    transition: transform 0.3s ease;
 }
 
-.kartu-1 {
-    grid-area: card1;
-    --tx: 20%; --ty: 100%;
-    transform: translateX(var(--tx)) translateY(var(--ty));
-}
-.kartu-2 {
-    grid-area: card2;
-    --tx: 13%; --ty: 0%;
-    transform: translateX(var(--tx)) translateY(var(--ty));
-}
-.kartu-3 {
-    grid-area: card3;
-    --tx: 30%; --ty: -100%;
-    transform: translateX(var(--tx)) translateY(var(--ty));
-}
-.kartu-4 {
-    grid-area: card4;
-    --tx: 80%; --ty: 100%;
-    transform: translateX(var(--tx)) translateY(var(--ty));
-}
-.kartu-5 {
-    grid-area: card5;
-    --tx: -20%; --ty: -410%;
-    transform: translateX(var(--tx)) translateY(var(--ty));
-}
-.kartu-6 {
-    grid-area: card6;
-    --tx: 70%; --ty: -100%;
-    transform: translateX(var(--tx)) translateY(var(--ty));
-}
 
-.kartu:hover{
-    transform: translate(var(--tx, 0), var(--ty, 0)) scale(1.2);
-    box-shadow: 0px 0px 20px rgba(237, 67, 214, 0.625);
+.kartu:hover {
+    transform: scale(1.15); 
+    box-shadow: 0px 10px 20px rgba(237, 67, 214, 0.5);
     z-index: 10;
 }
+
+.kartu-utama img:hover {
+    transform: scale(1.04);
+}
+
 
 .penutup {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
+    margin-bottom: 3rem;
 }
+
 .penutup img {
-    width: auto;
-    height: 20rem;
-    max-width: 90%;
-    padding: 1rem;
-    display: block;
+    width: 200px;
+    height: auto;
 }
 
 .penutup p {
-    font-size: xx-large;
+    font-size: 2rem;
     font-family: 'Courier New', Courier, monospace;
     color: #1F0019;
-    font-weight: 500;
-    margin-top: -2rem;
-    margin-bottom: 5rem;
+    font-weight: bold;
+    margin-top: 1rem;
 }
 
 @media (max-width: 1560px) {
@@ -1387,13 +1391,6 @@ section.surat {
     .col-box{
         height: auto;
     }
-    section.surat{
-        margin-top: -105rem;
-    }
-    .kotak-surat {
-        margin-top: -40rem;
-
-    }
     .cover-bunga {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -1404,54 +1401,15 @@ section.surat {
             "card4"
             "card5"
             "card6";
-        gap: 10px;
-        margin-top: -80%;
+        width: 95%;
     }
-    .kartu-1 {
-        grid-area: card1;
-        transform: translateX(-74%) translateY(-410%);
-        width: max-content;
-    }
-    .kartu-2 {
-        grid-area: card2;
-        transform: translateX(-90%) translateY(-400%);
-        width: max-content; 
-    }
-    .kartu-3 {
-        grid-area: card3;
-        transform: translateX(-72%) translateY(-310%);
-        width: max-content;
-    }
-    .kartu-4 {
-        grid-area: card4;
-        transform: translateX(80%) translateY(-830%);
-        width: max-content;
-    }
-    .kartu-5 {
-        grid-area: card5;
-        transform: translateX(90%) translateY(-760%);
-        width: max-content;
-    }
-    .kartu-6 {
-        grid-area: card6;
-        transform: translateX(70%) translateY(-620%);
-        width: max-content;
-    }
-    .latar1{
-        margin-top: 10rem;
-    }
-    .kartu p{
-        max-width: 35rem;
-    }
-    .penutup{
-        margin-top: -45rem;
-        top: 0%;
-    }
+
     .kartu-utama img {
-        height: 40rem;
+        max-height: 400px;
     }
-    .penutup img {
-        height: 17rem;
+    
+    .kartu {
+        width: 100%; 
     }
 }
 
@@ -1878,5 +1836,3 @@ section.surat {
         font-size: medium;
     }
 }
-
-
